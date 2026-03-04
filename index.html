@@ -37,7 +37,7 @@
                 <p>Answer a few questions by voice or form. We’ll generate a personalized summary with gentle lifestyle
                     adjustments and send it to your email.</p>
                 <div class="cta-group">
-                    <a href="#assistant" class="btn btn-primary">Start Voice Check-In</a>
+                    <a href="#assistant" class="btn btn-primary" id="open-voice-hero">Start Voice Check-In</a>
                     <a href="#how" class="btn btn-secondary">See How It Works</a>
                 </div>
                 <p class="micro-note">Not medical advice. If you have severe or persistent symptoms, consult a licensed
@@ -119,21 +119,47 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <a href="#assistant" class="btn btn-primary">Open Voice Assistant</a>
+                    <a href="#assistant" class="btn btn-primary" id="open-voice-panel">Open Voice Assistant</a>
                     <p class="micro-note">If you prefer text, we can add a form later — just say the word.</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <elevenlabs-convai agent-id="agent_8001kjvewzk3f6nbqez0hw1jcvys" avatar-orb-color-1="#7a5cff"
-        avatar-orb-color-2="#0b0f1a"></elevenlabs-convai>
+    <elevenlabs-convai id="voice-widget" agent-id="agent_8001kjvewzk3f6nbqez0hw1jcvys"
+        avatar-orb-color-1="#7a5cff" avatar-orb-color-2="#0b0f1a"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
     <footer class="container site-footer">
         <p>&copy; 2026 Digestive Wellness Check-In. All rights reserved.</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const openButtons = [
+                document.getElementById('open-voice-hero'),
+                document.getElementById('open-voice-panel')
+            ].filter(Boolean);
+            const widget = document.getElementById('voice-widget');
+
+            if (!widget || openButtons.length === 0) return;
+
+            const openWidget = () => {
+                // Best-effort: ask the widget to expand if supported.
+                widget.setAttribute('variant', 'expanded');
+
+                // Fallback: try to click the widget's internal button if it's exposed.
+                const shadowButton = widget.shadowRoot?.querySelector('button');
+                if (shadowButton) shadowButton.click();
+            };
+
+            openButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    openWidget();
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
