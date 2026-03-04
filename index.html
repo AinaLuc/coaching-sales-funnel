@@ -37,8 +37,8 @@
                 <p>Answer a few questions by voice or form. We’ll generate a personalized summary with gentle lifestyle
                     adjustments and send it to your email.</p>
                 <div class="cta-group">
-                    <a href="#checkin" class="btn btn-primary">Start the Check-In</a>
-                    <a href="#assistant" class="btn btn-secondary">Talk to the Assistant</a>
+                    <a href="#assistant" class="btn btn-primary">Start Voice Check-In</a>
+                    <a href="#how" class="btn btn-secondary">See How It Works</a>
                 </div>
                 <p class="micro-note">Not medical advice. If you have severe or persistent symptoms, consult a licensed
                     professional.</p>
@@ -99,97 +99,29 @@
 
         <section id="checkin" class="container" data-reveal>
             <div class="section-head">
-                <h2>Digestive Lifestyle Check-In</h2>
-                <p>Answer honestly. Your responses stay on this page until you choose to email the report.</p>
+                <h2>Voice-First Check-In</h2>
+                <p>Speak with the assistant to complete your wellness snapshot and request an emailed summary.</p>
             </div>
-            <form id="checkin-form" class="glass-panel form-panel">
-                <div class="grid-two">
-                    <label>
-                        How often do you feel bloated or uncomfortable?
-                        <select name="bloating" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="0">Rarely</option>
-                            <option value="1">Sometimes</option>
-                            <option value="2">Often</option>
-                        </select>
-                    </label>
-                    <label>
-                        How regular are your bowel movements?
-                        <select name="regularity" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="0">Daily</option>
-                            <option value="1">Every 2-3 days</option>
-                            <option value="2">Less frequent</option>
-                        </select>
-                    </label>
-                    <label>
-                        How do you feel after most meals?
-                        <select name="postMeal" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="0">Energized</option>
-                            <option value="1">A little sluggish</option>
-                            <option value="2">Heavy or uncomfortable</option>
-                        </select>
-                    </label>
-                    <label>
-                        How much water do you drink daily?
-                        <select name="water" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="2">Low (0-3 cups)</option>
-                            <option value="1">Moderate (4-7 cups)</option>
-                            <option value="0">High (8+ cups)</option>
-                        </select>
-                    </label>
-                    <label>
-                        How many servings of fiber-rich foods do you get daily?
-                        <select name="fiber" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="2">0-1 servings</option>
-                            <option value="1">2-3 servings</option>
-                            <option value="0">4+ servings</option>
-                        </select>
-                    </label>
-                    <label>
-                        Current stress level?
-                        <select name="stress" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="0">Low</option>
-                            <option value="1">Moderate</option>
-                            <option value="2">High</option>
-                        </select>
-                    </label>
-                    <label>
-                        Sleep quality lately?
-                        <select name="sleep" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="0">Restful</option>
-                            <option value="1">Inconsistent</option>
-                            <option value="2">Poor</option>
-                        </select>
-                    </label>
-                    <label>
-                        Your email (to receive your snapshot)
-                        <input type="email" name="email" id="email" placeholder="you@email.com" required>
-                    </label>
+            <div class="glass-panel form-panel voice-panel">
+                <h3>What to Expect</h3>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <p>Answer a few quick questions by voice.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <p>Receive a calm, clear wellness snapshot.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <p>Request your summary by email at the end.</p>
+                    </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Generate My Snapshot</button>
-                    <p class="micro-note">We’ll prepare your report. You can email it to yourself in the next step.</p>
+                    <a href="#assistant" class="btn btn-primary">Open Voice Assistant</a>
+                    <p class="micro-note">If you prefer text, we can add a form later — just say the word.</p>
                 </div>
-            </form>
-
-            <div id="result" class="glass-panel result-panel" hidden>
-                <div class="result-header">
-                    <h3>Your Digestive Lifestyle Snapshot</h3>
-                    <span id="score-label">Balance Level: Moderate</span>
-                </div>
-                <p id="summary"></p>
-                <div class="result-grid" id="suggestions"></div>
-                <div class="email-actions">
-                    <button id="email-report" class="btn btn-secondary" type="button">Email My Report</button>
-                    <span id="email-status"></span>
-                </div>
-                <p class="micro-note">This is general wellness guidance, not medical advice.</p>
             </div>
         </section>
     </main>
@@ -202,93 +134,6 @@
         <p>&copy; 2026 Digestive Wellness Check-In. All rights reserved.</p>
     </footer>
 
-    <script>
-        const form = document.getElementById('checkin-form');
-        const result = document.getElementById('result');
-        const summary = document.getElementById('summary');
-        const suggestions = document.getElementById('suggestions');
-        const scoreLabel = document.getElementById('score-label');
-        const emailButton = document.getElementById('email-report');
-        const emailStatus = document.getElementById('email-status');
-
-        const suggestionBank = [
-            {
-                title: 'Hydration Rhythm',
-                body: 'Aim for consistent water intake across the day. Try a glass upon waking and one before each meal.'
-            },
-            {
-                title: 'Fiber Foundation',
-                body: 'Add one fiber-rich food per meal: berries, leafy greens, oats, or legumes.'
-            },
-            {
-                title: 'Post-Meal Reset',
-                body: 'Take a 10-minute walk or stretch after meals to support digestive motility.'
-            },
-            {
-                title: 'Stress Downshift',
-                body: 'Use a 3-minute breathing reset before meals to calm the nervous system.'
-            },
-            {
-                title: 'Sleep Support',
-                body: 'Aim for a consistent bedtime and reduce screens 45 minutes before sleep.'
-            }
-        ];
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            emailStatus.textContent = '';
-
-            const data = new FormData(form);
-            const score = ['bloating', 'regularity', 'postMeal', 'water', 'fiber', 'stress', 'sleep']
-                .map(key => Number(data.get(key)))
-                .reduce((total, value) => total + value, 0);
-
-            const balance = score <= 4 ? 'Balanced' : score <= 8 ? 'Moderate' : 'Needs Support';
-            const message = balance === 'Balanced'
-                ? 'Your habits look supportive overall. Keep your rhythm steady and make small refinements for long-term comfort.'
-                : balance === 'Moderate'
-                    ? 'You have a solid base with a few areas to stabilize. Focus on hydration, fiber, and stress recovery.'
-                    : 'Your lifestyle signals higher digestive stress. Start with gentle, consistent changes and track how you feel.';
-
-            scoreLabel.textContent = `Balance Level: ${balance}`;
-            summary.textContent = message;
-
-            const picks = balance === 'Balanced'
-                ? suggestionBank.slice(0, 3)
-                : balance === 'Moderate'
-                    ? [suggestionBank[0], suggestionBank[1], suggestionBank[3]]
-                    : [suggestionBank[0], suggestionBank[2], suggestionBank[4]];
-
-            suggestions.innerHTML = '';
-            picks.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'glass-panel suggestion-card';
-                card.innerHTML = `<h4>${item.title}</h4><p>${item.body}</p>`;
-                suggestions.appendChild(card);
-            });
-
-            result.hidden = false;
-            result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        emailButton.addEventListener('click', () => {
-            const email = document.getElementById('email').value.trim();
-            if (!email) {
-                emailStatus.textContent = 'Please enter a valid email first.';
-                return;
-            }
-
-            const report = `${scoreLabel.textContent}\n\n${summary.textContent}\n\nNext Steps:\n${[...suggestions.querySelectorAll('h4')]
-                .map((title, index) => `${index + 1}. ${title.textContent}`)
-                .join('\n')}`;
-
-            const subject = encodeURIComponent('Your Digestive Lifestyle Snapshot');
-            const body = encodeURIComponent(`Hi,\n\nHere is your digestive lifestyle snapshot:\n\n${report}\n\nThis is general wellness guidance, not medical advice.`);
-
-            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-            emailStatus.textContent = 'Your email app should open with the report ready to send.';
-        });
-    </script>
 </body>
 
 </html>
